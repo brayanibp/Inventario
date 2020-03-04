@@ -18,12 +18,14 @@ CREATE TABLE IF NOT EXISTS marcas(
 
 CREATE TABLE IF NOT EXISTS usuarios(
 	id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo CHAR(1) NOT NULL,
     cedula INT UNIQUE NOT NULL,
     nombre VARCHAR(20) NOT NULL,
     apellido VARCHAR(20) NOT NULL,
-    fecha_nacimiento DATE NOT NULL,
+    username VARCHAR(20) NOT NULL,
     direccion TEXT(100) NOT NULL,
-    accesos VARCHAR(45) NOT NULL DEFAULT 'a1',
+    fecha_nacimiento DATE NOT NULL,
+    accesos VARCHAR(45) NOT NULL DEFAULT 'Inv',
     u_password VARCHAR(45) NOT NULL
 ) ENGINE = InnoDB;
 
@@ -45,7 +47,13 @@ CREATE TABLE facturas(
     fecha DATE NOT NULL,
     monto_bruto DOUBLE NOT NULL,
     iva INT NOT NULL DEFAULT 16,
-    estatus CHAR(1) NOT NULL
+    estatus CHAR(1) NOT NULL,
+    responsable_id INT NOT NULL,
+    cliente_id INT NOT NULL,
+    CONSTRAINT responsable_id FOREIGN KEY (responsable_id) 
+    REFERENCES usuarios(id),
+    CONSTRAINT cliente_id FOREIGN KEY (cliente_id) 
+    REFERENCES clientes(id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE facturas_det(
@@ -58,3 +66,5 @@ CREATE TABLE facturas_det(
     CONSTRAINT producto_id FOREIGN KEY (producto_id)
     REFERENCES productos (id)
 ) ENGINE = InnoDB;
+
+INSERT INTO usuarios (tipo,cedula,nombre,apellido,username,direccion,fecha_nacimiento,accesos,u_password) VALUES ('V',0,'ADMINISTRADOR','ADMINISTRADOR','ADMIN','EMPRESA',date.NOW(),'Inv.cUs.cAc.cCl.lCl.Fac.rFa.aFa.','admin')

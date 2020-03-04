@@ -42,6 +42,7 @@ namespace Inventario1
             {
                 using (Menu menuview = new Menu())
                     menuview.ShowDialog();
+                this.Close();
             }
         }
     }

@@ -17,3 +17,10 @@ C:\Users\USUARIO\Desktop\Inventario1\bin\Debug\Renci.SshNet.dll
 C:\Users\USUARIO\Desktop\Inventario1\bin\Debug\MySql.Data.xml
 C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.csproj.CopyComplete
 C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.Clientes.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.ListaClientes.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.AccesosUsuario.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.Usuarios.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.FormUsuario.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.FormProducto.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.FormMarca.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.Facturacion.resources

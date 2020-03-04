@@ -35,12 +35,12 @@
             this.accesosUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificarClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reimprimirFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.anularFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,20 +77,21 @@
             // crearUsuarioToolStripMenuItem
             // 
             this.crearUsuarioToolStripMenuItem.Name = "crearUsuarioToolStripMenuItem";
-            this.crearUsuarioToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.crearUsuarioToolStripMenuItem.Text = "Crear Usuario";
+            this.crearUsuarioToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.crearUsuarioToolStripMenuItem.Text = "Panel de Usuarios";
+            this.crearUsuarioToolStripMenuItem.Click += new System.EventHandler(this.crearUsuarioToolStripMenuItem_Click);
             // 
             // accesosUsuariosToolStripMenuItem
             // 
             this.accesosUsuariosToolStripMenuItem.Name = "accesosUsuariosToolStripMenuItem";
-            this.accesosUsuariosToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.accesosUsuariosToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.accesosUsuariosToolStripMenuItem.Text = "Accesos usuarios";
+            this.accesosUsuariosToolStripMenuItem.Click += new System.EventHandler(this.accesosUsuariosToolStripMenuItem_Click);
             // 
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.registrarClienteToolStripMenuItem,
-            this.modificarClienteToolStripMenuItem,
             this.listaDeClientesToolStripMenuItem});
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -99,27 +100,23 @@
             // registrarClienteToolStripMenuItem
             // 
             this.registrarClienteToolStripMenuItem.Name = "registrarClienteToolStripMenuItem";
-            this.registrarClienteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.registrarClienteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.registrarClienteToolStripMenuItem.Text = "Registrar Cliente";
             this.registrarClienteToolStripMenuItem.Click += new System.EventHandler(this.registrarClienteToolStripMenuItem_Click);
-            // 
-            // modificarClienteToolStripMenuItem
-            // 
-            this.modificarClienteToolStripMenuItem.Name = "modificarClienteToolStripMenuItem";
-            this.modificarClienteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.modificarClienteToolStripMenuItem.Text = "Modificar Cliente";
             // 
             // listaDeClientesToolStripMenuItem
             // 
             this.listaDeClientesToolStripMenuItem.Name = "listaDeClientesToolStripMenuItem";
-            this.listaDeClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listaDeClientesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.listaDeClientesToolStripMenuItem.Text = "Lista de Clientes";
+            this.listaDeClientesToolStripMenuItem.Click += new System.EventHandler(this.listaDeClientesToolStripMenuItem_Click);
             // 
             // facturasToolStripMenuItem
             // 
             this.facturasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.facturarToolStripMenuItem,
-            this.reimprimirFacturaToolStripMenuItem});
+            this.reimprimirFacturaToolStripMenuItem,
+            this.anularFacturaToolStripMenuItem});
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
             this.facturasToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.facturasToolStripMenuItem.Text = "Facturas";
@@ -127,14 +124,16 @@
             // facturarToolStripMenuItem
             // 
             this.facturarToolStripMenuItem.Name = "facturarToolStripMenuItem";
-            this.facturarToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.facturarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.facturarToolStripMenuItem.Text = "Facturar";
+            this.facturarToolStripMenuItem.Click += new System.EventHandler(this.facturarToolStripMenuItem_Click);
             // 
             // reimprimirFacturaToolStripMenuItem
             // 
             this.reimprimirFacturaToolStripMenuItem.Name = "reimprimirFacturaToolStripMenuItem";
-            this.reimprimirFacturaToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.reimprimirFacturaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reimprimirFacturaToolStripMenuItem.Text = "Reimprimir Factura";
+            this.reimprimirFacturaToolStripMenuItem.Click += new System.EventHandler(this.reimprimirFacturaToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -142,6 +141,13 @@
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // anularFacturaToolStripMenuItem
+            // 
+            this.anularFacturaToolStripMenuItem.Name = "anularFacturaToolStripMenuItem";
+            this.anularFacturaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.anularFacturaToolStripMenuItem.Text = "Anular Factura";
+            this.anularFacturaToolStripMenuItem.Click += new System.EventHandler(this.anularFacturaToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -152,7 +158,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Nombre de la Empresa";
+            this.Text = "Inversiones Moros Res1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -170,11 +176,11 @@
         private System.Windows.Forms.ToolStripMenuItem accesosUsuariosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarClienteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem modificarClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaDeClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reimprimirFacturaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem anularFacturaToolStripMenuItem;
     }
 }

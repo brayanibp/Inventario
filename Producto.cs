@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inventario1
 {
-    class Producto
+    public class Producto
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -14,6 +14,8 @@ namespace Inventario1
         public double Precio { get; set; }
         public int Iva { get; set; }
         public int Unidades { get; set; }
+
+        public Producto() { }
 
         public Producto(int id, string nombre, int marcaId, double precio, int iva, int unidades)
         {

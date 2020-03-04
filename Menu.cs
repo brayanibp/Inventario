@@ -33,5 +33,41 @@ namespace Inventario1
             using (Clientes clientesview = new Clientes())
                 clientesview.ShowDialog();
         }
+
+        private void listaDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (ListaClientes listaClientesview = new ListaClientes())
+                listaClientesview.ShowDialog();
+        }
+
+        private void accesosUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (AccesosUsuario accesosUsuarioview = new AccesosUsuario())
+                accesosUsuarioview.ShowDialog();
+        }
+
+        private void crearUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Usuarios usuariosview = new Usuarios())
+                usuariosview.ShowDialog();
+        }
+
+        private void facturarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Facturacion facturacionview = new Facturacion())
+                facturacionview.ShowDialog();
+        }
+
+        private void reimprimirFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (ReimpresionFactura reimpresionview = new ReimpresionFactura())
+                reimpresionview.ShowDialog();
+        }
+
+        private void anularFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (AnularFactura anulacionview = new AnularFactura())
+                anulacionview.ShowDialog();
+        }
     }
 }

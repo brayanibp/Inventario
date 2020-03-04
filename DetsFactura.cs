@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inventario1
 {
-    class DetsFactura
+     public class DetsFactura
     {
         private List<DetFactura> Lista;
 
