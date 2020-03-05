@@ -8,7 +8,7 @@ namespace Inventario1
 {
      public class DetsFactura
     {
-        private List<DetFactura> Lista;
+        private List<DetFactura> Lista = new List<DetFactura>();
 
         public List<DetFactura> getLista()
         {

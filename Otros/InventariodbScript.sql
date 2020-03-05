@@ -61,11 +61,14 @@ CREATE TABLE facturas_det(
     factura_id INT NOT NULL,
     producto_id INT NOT NULL,
     unidades INT NOT NULL,
-    CONSTRAINT factura_id FOREIGN KEY (factura_id)
-    REFERENCES facturas (id),
+   -- CONSTRAINT factura_id FOREIGN KEY (factura_id)
+   -- REFERENCES facturas (id),
     CONSTRAINT producto_id FOREIGN KEY (producto_id)
     REFERENCES productos (id)
 ) ENGINE = InnoDB;
-CREATE TRIGGER `_control_factura` AFTER INSERT ON `facturas` FOR EACH ROW UPDATE facturas SET facturas.nro_factura = facturas.id.OLD, facturas.nro_control = facturas.id.OLD WHERE facturas.id = facturas.id;
-
-INSERT INTO usuarios (tipo,cedula,nombre,apellido,username,direccion,fecha_nacimiento,accesos,u_password) VALUES ('V',0,'ADMINISTRADOR','ADMINISTRADOR','ADMIN','EMPRESA',NOW(),'Inv.cUs.cAc.cCl.lCl.Fac.rFa.aFa.','admin')
+CREATE TABLE incrementable(
+	inc INT
+);
+-- CREATE TRIGGER `_control_factura` AFTER INSERT ON `facturas` FOR EACH ROW UPDATE facturas SET facturas.nro_factura = facturas.id, facturas.nro_control = facturas.id WHERE facturas.id = facturas.id;
+INSERT INTO incrementable(inc) VALUES (1); 
+INSERT INTO usuarios (tipo,cedula,nombre,apellido,username,direccion,fecha_nacimiento,accesos,u_password) VALUES ('V',0,'ADMINISTRADOR','ADMINISTRADOR','ADMIN','EMPRESA',NOW(),'Inv.cUs.cAc.cCl.lCl.Fac.rFa.aFa.','admin');

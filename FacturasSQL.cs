@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace Inventario1
 {
@@ -11,61 +12,64 @@ namespace Inventario1
     {
         public static int Agregar(Factura factura)
         {
-            //public void RunTransaction(string myConnString)
-            //{
-            //    MySqlConnection myConnection = new MySqlConnection(myConnString);
-            //    myConnection.Open();
-            //
-            //    MySqlCommand myCommand = myConnection.CreateCommand();
-            //    MySqlTransaction myTrans;
-            //
-            //    // Start a local transaction
-            //    myTrans = myConnection.BeginTransaction();
-            //    // Must assign both transaction object and connection
-            //    // to Command object for a pending local transaction
-            //    myCommand.Connection = myConnection;
-            //    myCommand.Transaction = myTrans;
-            //
-            //    try
-            //    {
-            //        myCommand.CommandText = "insert into Test (id, desc) VALUES (100, 'Description')";
-            //        myCommand.ExecuteNonQuery();
-            //        myCommand.CommandText = "insert into Test (id, desc) VALUES (101, 'Description')";
-            //        myCommand.ExecuteNonQuery();
-            //        myTrans.Commit();
-            //        Console.WriteLine("Both records are written to database.");
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        try
-            //        {
-            //            myTrans.Rollback();
-            //        }
-            //        catch (SqlException ex)
-            //        {
-            //            if (myTrans.Connection != null)
-            //            {
-            //                Console.WriteLine("An exception of type " + ex.GetType() +
-            //                " was encountered while attempting to roll back the transaction.");
-            //            }
-            //        }
-            //
-            //        Console.WriteLine("An exception of type " + e.GetType() +
-            //        " was encountered while inserting the data.");
-            //        Console.WriteLine("Neither record was written to database.");
-            //    }
-            //    finally
-            //    {
-            //        myConnection.Close();
-            //    }
-            //}
-            //MySqlCommand mycommand = 
             int retorno = 0;
+            MySqlConnection myConnection = DbComun.GetConnection();
+            MySqlCommand myCommad = myConnection.CreateCommand();
+            MySqlTransaction myTransaction;
+            myTransaction = myConnection.BeginTransaction();
+            myCommad.Connection = myConnection;
+            myCommad.Transaction = myTransaction;
             string fecha = DateTime.Parse(factura.Fecha).Year.ToString() + "-" + DateTime.Parse(factura.Fecha).Month.ToString() + "-" + DateTime.Parse(factura.Fecha).Day.ToString();
-            MySqlCommand comando = new MySqlCommand(string.Format("INSERT INTO usuarios (nro_factura, nro_control, fecha, monto_bruto, iva, estatus, responsable_id, cliente_id) VALUES ({0},{1},'{2}',{3},{4},'{5}',{6},{7})",
-                factura.NroFactura, factura.NroControl, fecha, factura.MontoBruto, factura.Iva, factura.Estatus, factura.ResponsableId, factura.ClienteId), DbComun.GetConnection());
-            retorno = comando.ExecuteNonQuery();
+            try
+            {
+                int id = getLastFacturaId();
+                myCommad.CommandText = "INSERT INTO facturas (nro_factura, nro_control, fecha, monto_bruto, iva, estatus, responsable_id, cliente_id) VALUES ("+id.ToString()+", "+id.ToString()+", '"+fecha+"', "+factura.MontoBruto+", "+factura.Iva+", '"+factura.Estatus+"', "+factura.ResponsableId+", "+factura.ClienteId+")";
+                myCommad.ExecuteNonQuery();
+                List<DetFactura> detalles = factura.Detalles.getLista();
+                myCommad.CommandText = "UPDATE incrementable SET inc = inc+1";
+                myCommad.ExecuteNonQuery();
+                for (int i = 0; i < detalles.Count; i++)
+                {
+                    myCommad.CommandText = "INSERT INTO facturas_det (factura_id,producto_id,unidades) VALUES ("+id.ToString()+", "+detalles[i].ProductoId.ToString()+", "+detalles[i].Unidades.ToString()+")";
+                    myCommad.ExecuteNonQuery();
+                }
+                myTransaction.Commit();
+                retorno = 1;
+            } 
+            catch(Exception e)
+            {
+                retorno = -1;
+                try
+                {
+                    myTransaction.Rollback();
+                } catch(MySqlException ex)
+                {
+                    if(myTransaction.Connection != null)
+                    {
+                        MessageBox.Show("An exception of type " + ex.GetType() + " was encountered while attempting to roll back the transaction. "+ex.Message);
+                    }
+                }
+                MessageBox.Show("An exception of type " + e.GetType() + " was encountered while inserting the data. "+e.Message);
+                MessageBox.Show("Neither record was written to database.");
+            }
+            finally
+            {
+                myConnection.Close();
+            }
             return retorno;
+        }
+
+        public static int getLastFacturaId()
+        {
+            int id = 0;
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT inc FROM incrementable LIMIT 1"), DbComun.GetConnection());
+            MySqlDataReader reader = comando.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+            return id;
         }
         public static int AnularFactura(int Id)
         {

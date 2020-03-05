@@ -147,6 +147,15 @@ namespace Inventario1
             factura.ResponsableId = Responsable.Id;
             factura.ClienteId = ClienteSeleccionado.Id;
             factura.Detalles = DetallesFactura;
+            int response = FacturasSQL.Agregar(factura);
+            if (response > 0)
+            {
+                MessageBox.Show("Factura Registrada con exito","Facturación",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Factura Fallo al registrarse", "Facturación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
