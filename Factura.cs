@@ -11,7 +11,7 @@ namespace Inventario1
         public int Id { get; set; }
         public int NroFactura { get; set; }
         public int NroControl { get; set; }
-        public DateTime Fecha { get; set; }
+        public string Fecha { get; set; }
         public double MontoBruto { get; set; }
         public int Iva { get; set; }
         public double Total { get; set; }
@@ -22,7 +22,7 @@ namespace Inventario1
 
         public Factura() { }
         
-        public Factura(int Id, int NroFactura, int NroControl, DateTime Fecha, double MontoBruto, int Iva, double Total, char Estatus, int ResponsableId, int ClienteId, DetsFactura Detalles)
+        public Factura(int Id, int NroFactura, int NroControl, string Fecha, double MontoBruto, int Iva, double Total, char Estatus, int ResponsableId, int ClienteId, DetsFactura Detalles)
         {
             this.Id = Id;
             this.NroFactura = NroFactura;

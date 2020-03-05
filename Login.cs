@@ -38,11 +38,23 @@ namespace Inventario1
             if (password.Text.Trim() == string.Empty || username.Text.Trim() == string.Empty)
             {
                 errorLabel1.Text = "Debe llenar ambos campos";
+            } else if (username.Text.Trim() != string.Empty && !username.Text.All(Char.IsLetter))
+            {
+                errorLabel1.Text = "El campo usuario no admite\rnumeros ni caracteres especiales";
             } else
             {
-                using (Menu menuview = new Menu())
-                    menuview.ShowDialog();
-                this.Close();
+                string pUsername = username.Text.Trim();
+                string pPassword = password.Text.Trim();
+                Usuario UsuarioLogueado = UsuariosSQL.Login(pUsername, pPassword);
+                if (UsuarioLogueado.Username == null)
+                {
+                    MessageBox.Show("Usuario o Contraseña invalidos.","Información",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                } else
+                {
+                    using (Menu menuview = new Menu(UsuarioLogueado))
+                        menuview.ShowDialog();
+                    this.Close();
+                }
             }
         }
     }

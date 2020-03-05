@@ -16,5 +16,13 @@ namespace Inventario1
         {
             InitializeComponent();
         }
+
+        private void ReimpresionFactura_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("rFa"))
+            {
+                Close();
+            }
+        }
     }
 }

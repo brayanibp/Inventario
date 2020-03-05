@@ -201,6 +201,7 @@
             this.Name = "AccesosUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Accesos de Usuario";
+            this.Load += new System.EventHandler(this.AccesosUsuario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

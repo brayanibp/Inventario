@@ -33,7 +33,7 @@
             this.reimpresion = new System.Windows.Forms.Button();
             this.anulacion = new System.Windows.Forms.Button();
             this.seleccionar_cliente = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cedula_cliente = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.username = new System.Windows.Forms.Label();
@@ -44,6 +44,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.total = new System.Windows.Forms.Label();
             this.sub_total = new System.Windows.Forms.Label();
+            this.iva = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,6 +57,7 @@
             this.facturar.TabIndex = 0;
             this.facturar.Text = "Facturar";
             this.facturar.UseVisualStyleBackColor = true;
+            this.facturar.Click += new System.EventHandler(this.facturar_Click);
             // 
             // limpiar
             // 
@@ -64,6 +67,7 @@
             this.limpiar.TabIndex = 1;
             this.limpiar.Text = "Limpiar Campos";
             this.limpiar.UseVisualStyleBackColor = true;
+            this.limpiar.Click += new System.EventHandler(this.limpiar_Click);
             // 
             // reimpresion
             // 
@@ -95,13 +99,13 @@
             this.seleccionar_cliente.UseVisualStyleBackColor = true;
             this.seleccionar_cliente.Click += new System.EventHandler(this.seleccionar_cliente_Click);
             // 
-            // textBox1
+            // cedula_cliente
             // 
-            this.textBox1.Location = new System.Drawing.Point(22, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 5;
+            this.cedula_cliente.Location = new System.Drawing.Point(22, 26);
+            this.cedula_cliente.Name = "cedula_cliente";
+            this.cedula_cliente.ReadOnly = true;
+            this.cedula_cliente.Size = new System.Drawing.Size(100, 20);
+            this.cedula_cliente.TabIndex = 5;
             // 
             // label1
             // 
@@ -138,6 +142,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(409, 159);
             this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label3
             // 
@@ -150,6 +155,7 @@
             // 
             // agregar_producto
             // 
+            this.agregar_producto.Enabled = false;
             this.agregar_producto.Location = new System.Drawing.Point(145, 71);
             this.agregar_producto.Name = "agregar_producto";
             this.agregar_producto.Size = new System.Drawing.Size(88, 23);
@@ -200,11 +206,34 @@
             this.sub_total.TabIndex = 14;
             this.sub_total.Text = "0.00";
             // 
+            // iva
+            // 
+            this.iva.AutoSize = true;
+            this.iva.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iva.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.iva.Location = new System.Drawing.Point(300, 277);
+            this.iva.Name = "iva";
+            this.iva.Size = new System.Drawing.Size(36, 16);
+            this.iva.TabIndex = 17;
+            this.iva.Text = "0.00";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(250, 277);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 16);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "I.V.A:";
+            // 
             // Facturacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 409);
+            this.ClientSize = new System.Drawing.Size(445, 404);
+            this.Controls.Add(this.iva);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.total);
             this.Controls.Add(this.sub_total);
             this.Controls.Add(this.label5);
@@ -215,14 +244,18 @@
             this.Controls.Add(this.username);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.cedula_cliente);
             this.Controls.Add(this.seleccionar_cliente);
             this.Controls.Add(this.anulacion);
             this.Controls.Add(this.reimpresion);
             this.Controls.Add(this.limpiar);
             this.Controls.Add(this.facturar);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Facturacion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facturación";
+            this.Load += new System.EventHandler(this.Facturacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -236,7 +269,7 @@
         private System.Windows.Forms.Button reimpresion;
         private System.Windows.Forms.Button anulacion;
         private System.Windows.Forms.Button seleccionar_cliente;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox cedula_cliente;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label username;
@@ -247,5 +280,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label total;
         private System.Windows.Forms.Label sub_total;
+        private System.Windows.Forms.Label iva;
+        private System.Windows.Forms.Label label7;
     }
 }

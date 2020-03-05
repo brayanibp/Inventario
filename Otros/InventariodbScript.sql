@@ -66,5 +66,6 @@ CREATE TABLE facturas_det(
     CONSTRAINT producto_id FOREIGN KEY (producto_id)
     REFERENCES productos (id)
 ) ENGINE = InnoDB;
+CREATE TRIGGER `_control_factura` AFTER INSERT ON `facturas` FOR EACH ROW UPDATE facturas SET facturas.nro_factura = facturas.id.OLD, facturas.nro_control = facturas.id.OLD WHERE facturas.id = facturas.id;
 
-INSERT INTO usuarios (tipo,cedula,nombre,apellido,username,direccion,fecha_nacimiento,accesos,u_password) VALUES ('V',0,'ADMINISTRADOR','ADMINISTRADOR','ADMIN','EMPRESA',date.NOW(),'Inv.cUs.cAc.cCl.lCl.Fac.rFa.aFa.','admin')
+INSERT INTO usuarios (tipo,cedula,nombre,apellido,username,direccion,fecha_nacimiento,accesos,u_password) VALUES ('V',0,'ADMINISTRADOR','ADMINISTRADOR','ADMIN','EMPRESA',NOW(),'Inv.cUs.cAc.cCl.lCl.Fac.rFa.aFa.','admin')

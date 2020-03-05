@@ -17,14 +17,11 @@ namespace Inventario1
             InitializeComponent();
         }
         public Usuario UsuarioSeleccionado { get; set; }
-        public AccesosUsuario(Usuario usuario)
+        public void cargar_accesos()
         {
-            InitializeComponent();
-            UsuarioSeleccionado = usuario;
-            cedula.Text = usuario.Cedula.ToString();
-            username.Text = usuario.Username;
-            string[] accesos = usuario.Accesos.Split('.');
-            for (int i = 0; i<accesos.Length; i++) {
+            string[] accesos = UsuarioSeleccionado.Accesos.Split('.');
+            for (int i = 0; i < accesos.Length; i++)
+            {
                 if (accesos[i] == "Inv")
                 {
                     Inv.Checked = true;
@@ -59,6 +56,14 @@ namespace Inventario1
                 }
             }
         }
+        public AccesosUsuario(Usuario usuario)
+        {
+            InitializeComponent();
+            UsuarioSeleccionado = usuario;
+            cedula.Text = usuario.Cedula.ToString();
+            username.Text = usuario.Username;
+            cargar_accesos();
+        }
         private void cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -66,9 +71,16 @@ namespace Inventario1
 
         private void buscar_Click(object sender, EventArgs e)
         {
-            List<Usuario> usuarios = UsuariosSQL.BuscarUsuarios(cedula.Text.Trim(), "cedula");
-            username.Text = usuarios[0].Username;
-            UsuarioSeleccionado = usuarios[0];
+            List<Usuario> usuarios = new List<Usuario>();
+            usuarios = UsuariosSQL.BuscarUsuarios(cedula.Text.Trim(), "cedula");
+            if (usuarios.Count > 0)
+            {
+                username.Text = usuarios[0].Username;
+                UsuarioSeleccionado = usuarios[0];
+                cargar_accesos();
+            }
+            else
+                MessageBox.Show("Algo ha ocurrido y no se encontro un usuario","Información",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void guardar_Click(object sender, EventArgs e)
@@ -111,6 +123,8 @@ namespace Inventario1
             {
                 accesos_cadena += accesos[i].Trim() + ".";
             }
+            if (UsuarioSeleccionado.Id == null)
+                return;
             int response = UsuariosSQL.ActualizarAccesos(UsuarioSeleccionado.Id, accesos_cadena);
             if (response > 0)
             {
@@ -119,6 +133,14 @@ namespace Inventario1
             } else
             {
                 MessageBox.Show("Accesos de Usuario no han podido ser actualizados con Exito.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AccesosUsuario_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("cAc"))
+            {
+                Close();
             }
         }
     }

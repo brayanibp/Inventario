@@ -24,3 +24,5 @@ C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.FormUsuario.resources
 C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.FormProducto.resources
 C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.FormMarca.resources
 C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.Facturacion.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.AnularFactura.resources
+C:\Users\USUARIO\Desktop\Inventario1\obj\Debug\Inventario1.ReimpresionFactura.resources

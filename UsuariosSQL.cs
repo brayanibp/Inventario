@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
 namespace Inventario1
 {
     class UsuariosSQL
     {
+        public static Usuario UsuarioLogueado = new Usuario();
         public static int Agregar(Usuario usuario)
         {
             //usuario.FechaNacimiento.ToString()
@@ -94,17 +96,20 @@ namespace Inventario1
             Usuario usuario = new Usuario();
             MySqlCommand comando = new MySqlCommand(string.Format("SELECT * FROM usuarios WHERE id = {0}", Id), DbComun.GetConnection());
             MySqlDataReader reader = comando.ExecuteReader();
-            reader.Read();
-            usuario.Id = reader.GetInt32(0);
-            usuario.Tipo = char.Parse(reader.GetString(1));
-            usuario.Cedula = reader.GetInt32(2);
-            usuario.Nombre = reader.GetString(3);
-            usuario.Apellido = reader.GetString(4);
-            usuario.Username = reader.GetString(5);
-            usuario.Direccion = reader.GetString(6);
-            usuario.FechaNacimiento = reader.GetMySqlDateTime(7).ToString();
-            usuario.Accesos = reader.GetString(8);
-            usuario.Password = reader.GetString(9);
+            if (reader.HasRows)
+            {
+                reader.Read();
+                usuario.Id = reader.GetInt32(0);
+                usuario.Tipo = char.Parse(reader.GetString(1));
+                usuario.Cedula = reader.GetInt32(2);
+                usuario.Nombre = reader.GetString(3);
+                usuario.Apellido = reader.GetString(4);
+                usuario.Username = reader.GetString(5);
+                usuario.Direccion = reader.GetString(6);
+                usuario.FechaNacimiento = reader.GetMySqlDateTime(7).ToString();
+                usuario.Accesos = reader.GetString(8);
+                usuario.Password = reader.GetString(9);
+            }
             return usuario;
         }
 
@@ -114,6 +119,51 @@ namespace Inventario1
             MySqlCommand comando = new MySqlCommand(string.Format("DELETE FROM usuarios WHERE id = {0}", Id), DbComun.GetConnection());
             retorno = comando.ExecuteNonQuery();
             return retorno;
+        }
+
+        public static Usuario Login(string username, string password)
+        {
+            Usuario usuario = new Usuario();
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * FROM usuarios WHERE username = '{0}' AND u_password = '{1}'", username, password), DbComun.GetConnection());
+            MySqlDataReader reader = comando.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                usuario.Id = reader.GetInt32(0);
+                usuario.Tipo = char.Parse(reader.GetString(1));
+                usuario.Cedula = reader.GetInt32(2);
+                usuario.Nombre = reader.GetString(3);
+                usuario.Apellido = reader.GetString(4);
+                usuario.Username = reader.GetString(5);
+                usuario.Direccion = reader.GetString(6);
+                usuario.FechaNacimiento = reader.GetMySqlDateTime(7).ToString();
+                usuario.Accesos = reader.GetString(8);
+                usuario.Password = reader.GetString(9);
+                UsuarioLogueado = usuario;
+            }
+            return usuario;
+        }
+        public static bool confirmar_acceso(string param)
+        {
+            string[] accesosUser = UsuarioLogueado.Accesos.Split('.');
+            bool accessGranted = false;
+            for (int i = 0; i < accesosUser.Length; i++)
+            {
+                if (accesosUser[i] == param)
+                {
+                    accessGranted = true;
+                }
+            }
+            if (!accessGranted)
+            {
+                MessageBox.Show("No tiene Acceso a este Formulario");
+                return false;
+            }
+            return true;
+        }
+        public static Usuario getLogedUser()
+        {
+            return UsuarioLogueado;
         }
     }
 }

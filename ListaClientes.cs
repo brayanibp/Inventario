@@ -19,7 +19,15 @@ namespace Inventario1
             string tipo = "todos";
             this.buscarC(param, tipo);
         }
-
+        public ListaClientes(string action)
+        {
+            InitializeComponent();
+            string param = "";
+            string tipo = "todos";
+            this.buscarC(param, tipo);
+            if (action != "default")
+                seleccionar.Enabled = true;
+        }
         public Cliente ClienteSeleccionado { get; set; }
 
         private void buscarC(string param, string tipo)
@@ -108,6 +116,33 @@ namespace Inventario1
             }
             else
                 MessageBox.Show("Debes seleccionar una fila.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void seleccionar_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                ClienteSeleccionado = ClientesSQL.ObtenerCliente(id);
+                if (ClienteSeleccionado != null)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Selección no ha podido realizarse.", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+                MessageBox.Show("Debes seleccionar una fila.", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void ListaClientes_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("lCl"))
+            {
+                Close();
+            }
         }
     }
 }

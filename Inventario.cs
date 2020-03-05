@@ -19,6 +19,15 @@ namespace Inventario1
             string tipo = "todos";
             this.buscarP(param, tipo);
         }
+        public Inventario(string s)
+        {
+            InitializeComponent();
+            string param = "";
+            string tipo = "todos";
+            this.buscarP(param, tipo);
+            if (s != string.Empty)
+                seleccionar.Enabled = true;
+        }
 
         public Producto ProductoSeleccionado { get; set; }
 
@@ -116,6 +125,33 @@ namespace Inventario1
             }
             else
                 MessageBox.Show("Debes seleccionar una fila.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void seleccionar_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedRows.Count == 1)
+            {
+                int id = Convert.ToInt32(dataGridView2.CurrentRow.Cells[0].Value);
+                ProductoSeleccionado = ProductosSQL.ObtenerProducto(id);
+                if (ProductoSeleccionado != null)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Selección no ha podido realizarse.", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+                MessageBox.Show("Debes seleccionar una fila.", "Selección", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void Inventario_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("Inv"))
+            {
+                Close();
+            }
         }
     }
 }

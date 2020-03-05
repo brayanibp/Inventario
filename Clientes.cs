@@ -85,5 +85,13 @@ namespace Inventario1
                 MessageBox.Show("Cliente no ha podido ser guardado.", "Algo a ido mal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void Clientes_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("cCl"))
+            {
+                Close();
+            }
+        }
     }
 }

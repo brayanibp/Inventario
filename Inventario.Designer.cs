@@ -43,6 +43,7 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.rDesc = new System.Windows.Forms.RadioButton();
             this.rCod = new System.Windows.Forms.RadioButton();
+            this.seleccionar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,9 +176,21 @@
             this.rCod.Text = "Código";
             this.rCod.UseVisualStyleBackColor = true;
             // 
+            // seleccionar
+            // 
+            this.seleccionar.Enabled = false;
+            this.seleccionar.Location = new System.Drawing.Point(458, 173);
+            this.seleccionar.Name = "seleccionar";
+            this.seleccionar.Size = new System.Drawing.Size(75, 23);
+            this.seleccionar.TabIndex = 12;
+            this.seleccionar.Text = "Seleccionar";
+            this.seleccionar.UseVisualStyleBackColor = true;
+            this.seleccionar.Click += new System.EventHandler(this.seleccionar_Click);
+            // 
             // Inventario
             // 
             this.ClientSize = new System.Drawing.Size(545, 331);
+            this.Controls.Add(this.seleccionar);
             this.Controls.Add(this.rDesc);
             this.Controls.Add(this.rCod);
             this.Controls.Add(this.dataGridView2);
@@ -190,6 +203,7 @@
             this.Name = "Inventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inventario";
+            this.Load += new System.EventHandler(this.Inventario_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -213,5 +227,6 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.RadioButton rDesc;
         private System.Windows.Forms.RadioButton rCod;
+        private System.Windows.Forms.Button seleccionar;
     }
 }

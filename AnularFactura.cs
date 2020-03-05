@@ -16,5 +16,13 @@ namespace Inventario1
         {
             InitializeComponent();
         }
+
+        private void AnularFactura_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("aFa"))
+            {
+                Close();
+            }
+        }
     }
 }

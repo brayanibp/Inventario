@@ -12,7 +12,7 @@ namespace Inventario1
         public int FacturaId { get; set; }
         public int ProductoId { get; set; }
         public int Unidades { get; set; }
-
+        public DetFactura() { }
         public DetFactura(int Id, int FacturaId, int ProductoId, int Unidades)
         {
             this.Id = Id;

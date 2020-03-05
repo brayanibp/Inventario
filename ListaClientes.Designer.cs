@@ -37,6 +37,7 @@
             this.rCed = new System.Windows.Forms.RadioButton();
             this.rNom = new System.Windows.Forms.RadioButton();
             this.refrescar = new System.Windows.Forms.Button();
+            this.seleccionar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,11 +129,23 @@
             this.refrescar.UseVisualStyleBackColor = true;
             this.refrescar.Click += new System.EventHandler(this.refrescar_Click);
             // 
+            // seleccionar
+            // 
+            this.seleccionar.Enabled = false;
+            this.seleccionar.Location = new System.Drawing.Point(449, 152);
+            this.seleccionar.Name = "seleccionar";
+            this.seleccionar.Size = new System.Drawing.Size(75, 23);
+            this.seleccionar.TabIndex = 9;
+            this.seleccionar.Text = "Seleccionar";
+            this.seleccionar.UseVisualStyleBackColor = true;
+            this.seleccionar.Click += new System.EventHandler(this.seleccionar_Click);
+            // 
             // ListaClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 252);
+            this.Controls.Add(this.seleccionar);
             this.Controls.Add(this.refrescar);
             this.Controls.Add(this.rNom);
             this.Controls.Add(this.rCed);
@@ -145,6 +158,7 @@
             this.Name = "ListaClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lista de Clientes";
+            this.Load += new System.EventHandler(this.ListaClientes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -162,5 +176,6 @@
         private System.Windows.Forms.RadioButton rCed;
         private System.Windows.Forms.RadioButton rNom;
         private System.Windows.Forms.Button refrescar;
+        private System.Windows.Forms.Button seleccionar;
     }
 }

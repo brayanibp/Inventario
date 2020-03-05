@@ -131,5 +131,13 @@ namespace Inventario1
             else
                 MessageBox.Show("Debes seleccionar una fila.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        private void Usuarios_Load(object sender, EventArgs e)
+        {
+            if (!UsuariosSQL.confirmar_acceso("cUs"))
+            {
+                Close();
+            }
+        }
     }
 }

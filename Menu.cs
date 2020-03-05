@@ -12,9 +12,12 @@ namespace Inventario1
 {
     public partial class Menu : Form
     {
-        public Menu()
+        public Usuario UsuarioLogueado = new Usuario();
+        public Menu(Usuario usuariologueado)
         {
             InitializeComponent();
+            UsuarioLogueado = usuariologueado;
+            MessageBox.Show("Bienvenido "+UsuarioLogueado.Nombre+" "+UsuarioLogueado.Apellido,"Bienvenida",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
