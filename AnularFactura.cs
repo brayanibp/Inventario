@@ -24,5 +24,23 @@ namespace Inventario1
                 Close();
             }
         }
+
+        private void anular_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Estás Seguro de Anular ésta Factura?", "Anulación de Factura", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                int response = FacturasSQL.AnularFactura(int.Parse(nro_factura.Text));
+                if (response > 0)
+                {
+                    MessageBox.Show("Factura " + nro_factura.Text + " Factura Anulada con Exito.", "Anulación de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } else
+                {
+                    MessageBox.Show("Anulación de Factura " + nro_factura.Text + " Fallida.", "Anulación de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            } else
+            {
+                MessageBox.Show("Factura " + nro_factura.Text + " Anulación Cancelada.", "Anulación de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }

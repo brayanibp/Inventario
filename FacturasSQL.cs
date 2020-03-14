@@ -74,15 +74,14 @@ namespace Inventario1
         public static int AnularFactura(int Id)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format("UPDATE usuarios SET estatus = 'A' WHERE id = {0}", Id), DbComun.GetConnection());
+            MySqlCommand comando = new MySqlCommand(string.Format("UPDATE usuarios SET estatus = 'A' WHERE nro_factura = {0}", Id), DbComun.GetConnection());
             retorno = comando.ExecuteNonQuery();
             return retorno;
         }
-        public static Factura ObtenerUsuario(int nro_factura, int nro_control)
+        public static Factura ObtenerFactura(int nro_factura)
         {
             Factura factura = new Factura();
-            DetsFactura detsfactura = new DetsFactura();
-            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * FROM facturas WHERE nro_factura = {0} AND nro_control = {1}", nro_factura, nro_control), DbComun.GetConnection());
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * FROM facturas WHERE nro_factura = {0}", nro_factura), DbComun.GetConnection());
             MySqlDataReader reader = comando.ExecuteReader();
             if (reader.HasRows)
             {
@@ -114,6 +113,50 @@ namespace Inventario1
                 }
             }
             return detalles;
+        }
+        public static List<Factura> BuscarFacturas(string param, string tipo)
+        {
+            List<Factura> facturas = new List<Factura>();
+            MySqlCommand comando;
+            if (tipo == "cedula")
+            {
+                comando = new MySqlCommand(string.Format("SELECT * FROM `facturas` INNER JOIN clientes ON cliente_id = clientes.id WHERE clientes.cedula = {0}", param), DbComun.GetConnection());
+            } 
+            else if (tipo == "nro_factura")
+            {
+                comando = new MySqlCommand(string.Format("SELECT * FROM facturas WHERE nro_factura = {0}", param), DbComun.GetConnection());
+            }
+            else
+            {
+                comando = new MySqlCommand(string.Format("SELECT * FROM facturas"), DbComun.GetConnection());
+            }
+            MySqlDataReader reader = comando.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Factura factura = new Factura();
+                    factura.Id = reader.GetInt32(0);
+                    factura.NroFactura = reader.GetInt32(1);
+                    factura.NroControl = reader.GetInt32(2);
+                    factura.Fecha = reader.GetMySqlDateTime(3).ToString();
+                    factura.MontoBruto = reader.GetDouble(4);
+                    factura.Iva = reader.GetInt32(5);
+                    factura.Estatus = reader.GetChar(6);
+                    factura.ResponsableId = reader.GetInt32(7);
+                    factura.ClienteId = reader.GetInt32(8);
+                    factura.Detalles = ObtenerDetalles(factura.Id);
+                    facturas.Add(factura);
+                }
+            }
+            return facturas;
+        }
+        public static DocFac ImpresionFactura()
+        {
+            DocFac factura = new DocFac();
+
+            //SELECT nro_factura, nro_control, monto_bruto, (monto_bruto * iva/100) AS monto_iva, (monto_bruto+(monto_bruto * iva/100)) AS total, fecha, clientes.cedula AS cedula, CONCAT(clientes.nombre,' ',clientes.apellido) AS nombre_completo, clientes.direccion AS direccion FROM `facturas` INNER JOIN clientes ON cliente_id = clientes.id WHERE nro_factura = {0}
+            return factura;
         }
     }
 }
